@@ -4,3 +4,8 @@ if (QL_INSTALL_EXAMPLES)
     install(TARGETS zero-bond-yield RUNTIME DESTINATION ${QL_INSTALL_EXAMPLESDIR})
 endif()
 
+add_executable(time-series time-series.cpp)
+target_link_libraries(time-series ql_library ${QL_THREAD_LIBRARIES})
+if (QL_INSTALL_EXAMPLES)
+    install(TARGETS time-series RUNTIME DESTINATION ${QL_INSTALL_EXAMPLESDIR})
+endif()
