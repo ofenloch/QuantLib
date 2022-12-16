@@ -9,6 +9,8 @@
  *
  * This example is taken from
  * https://letyourmoneygrow.com/yetanotherquant/QuantLib/book/BookQuantLib.pdf
+ * by Vasily Nekrasov. The original code sample is called 1.2 in the article. 
+ * A copy is in file code-1-2.cpp.
  *
  *
  */
@@ -106,7 +108,7 @@ int main(int argc, char* arv[]) {
     std::cout << "yield from QuantLib " << (double)yield << "\n";
 
     //*************************************//
-    // check the QunatLib results manually //
+    // check the QuantLib results manually //
     //*************************************//
 
     // After we calculated the bond yield with QuantLib business logic, we check it manually. Note
