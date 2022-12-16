@@ -108,6 +108,8 @@ int main(int argc, char* argv[]) {
 
         return 0;
     } catch (std::exception& e) {
+        std::cerr << argv[0] << " caught std::exception:\n";
         std::cerr << e.what() << '\n';
     }
+    return 1;
 }
