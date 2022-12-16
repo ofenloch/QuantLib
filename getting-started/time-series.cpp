@@ -11,25 +11,40 @@
 
 #include <ql/quantlib.hpp>
 #include <boost/algorithm/string.hpp>
+#include <ctype.h>
 #include <exception>
 #include <fstream>
 #include <istream>
 #include <string>
 #include <vector>
 
+
+#define MAX_LINE_LENGTH 1024
+
 QuantLib::TimeSeries<double> PriceSeries(char* filename) {
     // Read the file provided via command line
     std::ifstream in(filename);
-    std::string line;
+    char line[MAX_LINE_LENGTH];
     std::vector<std::string> lines;
-    while (in >> line)
+    while (in.getline(line, MAX_LINE_LENGTH, '\n')) {
         lines.push_back(line);
-
+    }
     // Container tools
     std::vector<QuantLib::Date> dates;
     std::vector<double> quotes;
 
     for (unsigned int i = 0; i < lines.size(); i++) {
+        if (!std::isdigit(lines[i].at(0))) {
+            // Ignore header and comment lines.
+            // The lines look loke this:
+            //    2000-01-03,19.900000,20.400000,19.799999,20.000000,14.064997,6400
+            // Usually the files has a header line like this:
+            //    Date,Open,High,Low,Close,Adj Close,Volume
+            // We'd like to be able to comment some lines with '#'.
+            //
+            // So, at least for now, we simply ignore all lines that do not start with a digit.
+            continue;
+        }
         std::vector<std::string> outerArray;
 
         boost::split(outerArray, lines[i], boost::is_any_of(","));
@@ -42,7 +57,7 @@ QuantLib::TimeSeries<double> PriceSeries(char* filename) {
         QuantLib::Day day = (QuantLib::Day)std::stoi(innerArray[2]);
 
         dates.push_back(QuantLib::Date(day, month, year));
-        quotes.push_back(atof(outerArray[6].c_str()));
+        quotes.push_back(atof(outerArray[5].c_str()));
     }
 
     // Create a QuantLib::TimeSeries object
@@ -67,18 +82,29 @@ int main(int argc, char* argv[]) {
         // Below are implementations of some methods of QL Timeseries//
         ///////////////////////////////////////////////////////////////
 
+        const bool bEmpty = mySeries.empty();
+        const size_t nLines = mySeries.size();
+        const QuantLib::Date dFirstDate = mySeries.firstDate();
+        const QuantLib::Date dLastDate = mySeries.lastDate();
+        const QuantLib::Date dBeforeLastDate = mySeries.lastDate() - 1;
+
+
         // Is the time series empty?
-        std::cout << "Is the series empty? (0 = not empty)\t" << mySeries.empty() << std::endl;
+        if (bEmpty) {
+            std::cout << "TimeSeries is empty.\n";
+            return 1;
+        }
+        std::cout << "TimeSeries has " << mySeries.size() << " entries.\n";
 
         // Start date of the time series
-        std::cout << "Start date of the time series:\t" << mySeries.firstDate() << std::endl;
+        std::cout << "TimeSeries' first date is " << dFirstDate << '\n';
 
         // Last date of the time series
-        std::cout << "Last date of the time series:\t" << mySeries.lastDate() << std::endl;
+        std::cout << "TimeSeries' last date is " << dLastDate << '\n';
 
         // What was the Adj.close value on November 14th, 2012?
-        std::cout << "Adjusted close on November 14th, 2012:\t"
-                  << mySeries[QuantLib::Date(14, QuantLib::Nov, 2012)] << std::endl;
+        std::cout << "Adjusted close on " << dBeforeLastDate << " was " << mySeries[dBeforeLastDate]
+                  << '\n';
 
         return 0;
     } catch (std::exception& e) {
