@@ -1,17 +1,8 @@
 add_executable(zero-coupon-bond-yield zero-coupon-bond-yield.cpp)
 target_link_libraries(zero-coupon-bond-yield ql_library ${QL_THREAD_LIBRARIES})
-if (QL_INSTALL_EXAMPLES)
-    install(TARGETS zero-coupon-bond-yield RUNTIME DESTINATION ${QL_INSTALL_EXAMPLESDIR})
-endif()
 
 add_executable(time-series time-series.cpp)
 target_link_libraries(time-series ql_library ${QL_THREAD_LIBRARIES})
-if (QL_INSTALL_EXAMPLES)
-    install(TARGETS time-series RUNTIME DESTINATION ${QL_INSTALL_EXAMPLESDIR})
-endif()
 
 add_executable(fixed-rate-bond-yield fixed-rate-bond-yield.cpp)
 target_link_libraries(fixed-rate-bond-yield ql_library ${QL_THREAD_LIBRARIES})
-if (QL_INSTALL_EXAMPLES)
-    install(TARGETS fixed-rate-bond-yield RUNTIME DESTINATION ${QL_INSTALL_EXAMPLESDIR})
-endif()
