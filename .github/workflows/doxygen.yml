@@ -6,8 +6,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Setup
+      env:
+        HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
       run: |
-        rm -f /usr/local/bin/2to3
         brew update
         brew install automake boost doxygen graphviz
         ./autogen.sh
@@ -18,3 +19,11 @@ jobs:
     - name: Check
       run: |
         make docs
+
+  header-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check
+      run: |
+        ./tools/check_all_header_docs.sh

@@ -20,7 +20,7 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file linearleastsquaresregression.hpp
+/*! \file generallinearleastsquares.hpp
     \brief general linear least square regression
 */
 
@@ -30,7 +30,6 @@
 #include <ql/qldefines.hpp>
 #include <ql/math/matrixutilities/svd.hpp>
 #include <ql/math/array.hpp>
-#include <boost/type_traits.hpp>
 #include <vector>
 
 namespace QuantLib {
