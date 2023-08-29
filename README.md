@@ -1,6 +1,16 @@
 
 # QuantLib: the free/open-source library for quantitative finance
 
+## "Installation"
+
+```
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=~/workspaces/qlinstall
+make install
+```
+See https://www.quantlib.org/install/cmake.shtml for more info.
+
+
 [![Download](https://img.shields.io/github/v/release/lballabio/QuantLib?label=Download&sort=semver)](https://github.com/lballabio/QuantLib/releases/latest)
 [![Licensed under the BSD 3-Clause License](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](https://github.com/lballabio/QuantLib/blob/master/LICENSE.TXT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1440997.svg)](https://doi.org/10.5281/zenodo.1440997)
