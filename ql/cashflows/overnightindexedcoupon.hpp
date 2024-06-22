@@ -71,6 +71,8 @@ namespace QuantLib {
         const std::vector<Rate>& indexFixings() const;
         //! value dates for the rates to be compounded
         const std::vector<Date>& valueDates() const { return valueDates_; }
+        //! averaging method
+        const RateAveraging::Type averagingMethod() const { return averagingMethod_; }
         //@}
         //! \name FloatingRateCoupon interface
         //@{
@@ -87,6 +89,7 @@ namespace QuantLib {
         mutable std::vector<Rate> fixings_;
         Size n_;
         std::vector<Time> dt_;
+        RateAveraging::Type averagingMethod_;
 
         Rate averageRate(const Date& date) const;
     };
@@ -95,13 +98,13 @@ namespace QuantLib {
     //! helper class building a sequence of overnight coupons
     class OvernightLeg {
       public:
-        OvernightLeg(const Schedule& schedule, ext::shared_ptr<OvernightIndex> overnightIndex);
+        OvernightLeg(Schedule schedule, ext::shared_ptr<OvernightIndex> overnightIndex);
         OvernightLeg& withNotionals(Real notional);
         OvernightLeg& withNotionals(const std::vector<Real>& notionals);
         OvernightLeg& withPaymentDayCounter(const DayCounter&);
         OvernightLeg& withPaymentAdjustment(BusinessDayConvention);
         OvernightLeg& withPaymentCalendar(const Calendar&);
-        OvernightLeg& withPaymentLag(Natural lag);
+        OvernightLeg& withPaymentLag(Integer lag);
         OvernightLeg& withGearings(Real gearing);
         OvernightLeg& withGearings(const std::vector<Real>& gearings);
         OvernightLeg& withSpreads(Spread spread);
@@ -116,7 +119,7 @@ namespace QuantLib {
         DayCounter paymentDayCounter_;
         Calendar paymentCalendar_;
         BusinessDayConvention paymentAdjustment_ = Following;
-        Natural paymentLag_ = 0;
+        Integer paymentLag_ = 0;
         std::vector<Real> gearings_;
         std::vector<Spread> spreads_;
         bool telescopicValueDates_ = false;

@@ -37,19 +37,9 @@ function(generate_dir_headers source_dir binary_dir)
     set(children_all "")
     file(GLOB children_hpp RELATIVE ${source_dir} "${source_dir}/*.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "all.hpp")
-    list(FILTER children_hpp EXCLUDE REGEX "swaptionvolcube1.hpp")
-    list(FILTER children_hpp EXCLUDE REGEX "swaptionvolcube2.hpp")
-    list(FILTER children_hpp EXCLUDE REGEX "swaptionvolcube1a.hpp")
 
-    # The ql/experimental/amortizingbonds have been moved to ql/instruments/bonds
+    # These headers were moved to another location.
     # Therefore, we can ignore them as they only contain a warning and the new includes.
-    if (${source_dir} MATCHES "experimental" AND ${source_dir} MATCHES "amortizingbonds")
-        list(FILTER children_hpp EXCLUDE REGEX "amortizingfixedratebond.hpp")
-        list(FILTER children_hpp EXCLUDE REGEX "amortizingfloatingratebond.hpp")
-        list(FILTER children_hpp EXCLUDE REGEX "amortizingcmsratebond.hpp")
-    endif ()
-
-    # Same for some headers in experimental/exoticoptions
     if (${source_dir} MATCHES "experimental" AND ${source_dir} MATCHES "exoticoptions")
         list(FILTER children_hpp EXCLUDE REGEX "margrabeoption.hpp")
         list(FILTER children_hpp EXCLUDE REGEX "analyticamericanmargrabeengine.hpp")
@@ -62,7 +52,6 @@ function(generate_dir_headers source_dir binary_dir)
         list(FILTER children_hpp EXCLUDE REGEX "analyticcomplexchooserengine.hpp")
     endif ()
 
-    list(FILTER children_hpp EXCLUDE REGEX "riskybond.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "composite.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "lexicographicalview.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "^curve.hpp")
@@ -74,6 +63,7 @@ function(generate_dir_headers source_dir binary_dir)
     list(FILTER children_hpp EXCLUDE REGEX "fddividendengine.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "fdstepconditionengine.hpp")
     list(FILTER children_hpp EXCLUDE REGEX "duffsdeviceinnerproduct.hpp")
+    list(FILTER children_hpp EXCLUDE REGEX "dividendvanillaoption.hpp")
 
     file(GLOB children_dir RELATIVE ${source_dir} "${source_dir}/*")
     list(FILTER children_dir EXCLUDE REGEX "CMakeFiles")

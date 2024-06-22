@@ -20,14 +20,13 @@
 #include <ql/instruments/cpicapfloor.hpp>
 #include <ql/instruments/cpiswap.hpp>
 #include <ql/instruments/creditdefaultswap.hpp>
-#include <ql/instruments/dividendbarrieroption.hpp>
 #include <ql/instruments/dividendschedule.hpp>
-#include <ql/instruments/dividendvanillaoption.hpp>
 #include <ql/instruments/doublebarrieroption.hpp>
 #include <ql/instruments/doublebarriertype.hpp>
 #include <ql/instruments/equitytotalreturnswap.hpp>
 #include <ql/instruments/europeanoption.hpp>
 #include <ql/instruments/fixedratebondforward.hpp>
+#include <ql/instruments/fixedvsfloatingswap.hpp>
 #include <ql/instruments/floatfloatswap.hpp>
 #include <ql/instruments/floatfloatswaption.hpp>
 #include <ql/instruments/forward.hpp>
