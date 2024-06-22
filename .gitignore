@@ -1,4 +1,5 @@
 # Compilation artifacts
+dist/
 configure
 quantlib-config
 libtool
